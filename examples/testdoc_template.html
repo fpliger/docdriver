@@ -1,0 +1,185 @@
+## -*- coding: utf-8 -*-
+<!DOCTYPE HTML>
+
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+     <meta charset="UTF-8">
+
+    <link href="assets/bootstrap-3.1.1-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="assets/google-code-prettify/prettify.js"></script>
+  <style type="text/css">
+      .row {
+    display: table;
+}
+
+[class*="col-"] {
+    float: none;
+    display: table-cell;
+    vertical-align: top;
+}
+  </style>
+</head>
+<body onload="prettyPrint()">
+
+
+  <div class="container">
+   <h1>1 Introduction</h1>
+
+    <h2>1.1 Scope</h2>
+
+    <p>Purpose of this document is to collect marked comments of text files and convert
+        them to a well formatted human readable documentation that can be used as an official
+        releast tests documentation or just as a nice looking overview of whats being tested.
+        </p>
+
+    <h2>1.2 References</h2>
+
+    <p>The following documents are used to develop this document:</p>
+
+        <ol>
+            <li> User Requirements Specification</li>
+        </ol>
+
+    <h2>1.3 Background</h2>
+
+    <p>This document is a fake document.. You have noticed that right?! :-)</p>
+
+    <p>This document is a prove of concept of the new easy to use python module
+        with the scope to create a fast and more complete overview of software
+        tests (idea started from functional tests simulating user tests using
+        selenium webdriver - hence the name docdriver, a tool to parse test files
+        and generate useful documentation from tests source code comments)</p>
+
+      <p>First, a few things before further reading:</p>
+
+      <ul>
+            <li>Documentation is damn important (and very hard to get right)!!
+            Attention on this has been topic has sensibly increased in the last years
+            and many cool tools like sphinx, read the docs & others have released
+            </li>
+          <li>Testing is damn important (and very hard to get right)!!
+            Attention on this has been topic has sensibly increased in the last years
+            and many cool tools and methodologies have been released
+            </li>
+          <li>Tests documentation is important too(and very boring to get right)!!
+            </li>
+        </ul>
+
+      <p>It's often very hard to have enough visibility on tests code. Developers
+      on the same team often need to look at the tests source code
+          (cit. "use the source Luke!") to understand what tests are really testing
+          and how.
+          This gap is even larger when it non-developers need to have access
+          to software testing and it's logics.
+      </p>
+
+    <h2>1.4 Testing general organization</h2>
+
+    <h3>Tests Execution</h3>
+
+    <p>
+      This protocol is automatically generated with DocDriver from the software functional
+      tests files. The tests execution will be automatically runned by the company continuous
+      integration infrastructure simulating this tests protocol steps. The results and
+      attachments mentioned in the following steps can be found in the following attachements
+      locations: <attachments-url-path>
+
+      NOTE: This protocol can also be be used by users & customers as template protocol to
+      run their own custom tests set as they describe all the steps and details to follow
+      in order to tests the application User Requirements (URS) described in the URS document.
+    </p>
+
+    <h3>Tests Cases Format</h3>
+
+    <p>
+      Each Test Case is structured according the following format:
+    </p>
+
+    <ul>
+        <li>Test code: it is the number which univocally identifies the test case;
+            the code shall have the following format: TEST_###, where ### is the unique test code number.
+        </li>
+      <li>Description: Briefly describe the aim of the test.</li>
+      <li>Test Procedure/Steps: A description of the steps to be followed to execute the test.
+          Each step is numbered and associated to a dedicate acceptance criteria. Every step
+          should contain the following columns:
+            <ul>
+                <li>id</li>
+                <li>description</li>
+                <li>expected result</li>
+                <li>line no</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h3>Protocol Acceptance Criteria</h3>
+
+    <p>
+      All the testing activities can be considered completed once all the tests listed in this
+        document have been completed with positive results and all the deviations and related
+        corrective actions have been evaluated and resolved.
+    </p>
+
+
+    <h3>Testing environment</h3>
+
+    <p>
+      Tests environment should be compliant with the system supported environments.
+    </p>
+
+
+    <h1>2 User Acceptance Testing Protocol</h1>
+
+
+    %for tci, tc in enumerate(document.test_cases, 1):
+    <h2>${tci} - ${tc.title}</h2>
+
+    <h3>Description:</h3>
+
+    <p>${tc.description}</p>
+
+    <div>
+            <div class="row" style="border: 1px solid;">
+                <div class="col-md-1">ID</div>
+                <div class="col-md-5" style="border-left: 1px solid;"><p>DESCRIPTION</p></div>
+                <div class="col-md-5" style="border-left: 1px solid;"><p>ASPECTED RESULT</p></div>
+                <div class="col-md-1" style="border-left: 1px solid;"><p>Line ref</p></div>
+             </div>
+            %for i, ts in enumerate(tc.steps, 1):
+            <div class="row" style="border-left: 1px solid; border-bottom: 1px solid; border-right: 1px solid;">
+                <div class="col-md-1">${tci}.${i}</div>
+                <div class="col-md-5" style="border-left: 1px solid;"><p>${ts.description}</p></div>
+                <div class="col-md-5" style="border-left: 1px solid;"><p>${ts.expected_result}</p></div>
+                <div class="col-md-1" style="border-left: 1px solid;"><p>${ts.line_no}</p></div>
+             </div>
+            %endfor
+    </div>
+    <div>
+           <div class="col-md-1"><h4>Notes:</h4></div>
+
+           <div class="col-md-11"><p>${tc.notes}</p></div>
+   </div>
+
+      <div>
+           <h4>Code:</h4>
+
+           <div>
+               <pre class="prettyprint">${u'\n'.join(tc.lines)}</pre>
+           </div>
+   </div>
+
+    %endfor
+
+
+   <div>
+           <h3>General Notes:</h3>
+           <p></p>
+   </div>
+
+  </div>
+ </div>
+
+</body>
+
+</html>
